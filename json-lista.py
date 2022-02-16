@@ -20,7 +20,7 @@ Garden="""
     }"""
 
 print (Garden)
-
+#intento de combertir el json a lista
 lista = json.loads(Garden)
 
 print(lista)
