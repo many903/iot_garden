@@ -3,34 +3,31 @@ import firebase_admin #pip install firebase_admin
 import time
 import datetime
 import serial
-from dhtxx import DHT11 # git clone https://github.com/jdupl/dhtxx-rpi-python3
+from dhtxx import DHT11,DHT # git clone https://github.com/jdupl/dhtxx-rpi-python3
 import RPi.GPIO as GPIO
 from firebase_admin import db
 from firebase_admin import credentials
 
 #pines
-GPIO.setmode(GPIO.BMC)
 dht_sensor = DHT(18)
 motor = 17
 moisture_sensor = serial.Serial('/dev/ttyUSB0',9600)
 light = serial.Serial('/dev/ttyUSB1',9600)
 
 # modo
-GPIO.setmode(GPIO.BMC)
+GPIO.setmode(GPIO.BCM)
 
 # funcion aturomatico
 def automatico():
-    suelo = 50
-    moisture = moisture_sensor
-    moisture= moisture.decode('utf8').strip()
-    moisture = moisture.readline()
-    if (moisture < suelo):
+   suelo = 50
+   humedad_suelo = serial.Serial('/dev/ttyUSB0',9600)
+   if (humedad_suelo < suelo):
         GPIO.output(31,True)
-    else:
+   else:
         GPIO.output(31,False)
 
 #credenciales para mover la base de datos
-cred = credentials.Certificate("path/to/serviceAccountKey.json")
+cred = credentials.Certificate("/home/pi/Desktop/iot-garden-92204-firebase-adminsdk-a723z-2d3767458f.json")
 firebase_admin.initialize_app(cred,{
 
     'databaseURL':'https://iot-garden-92204-default-rtdb.firebaseio.com/'
@@ -46,58 +43,61 @@ ref.set({
                 'update': 1, 
                 'pi_state':1,
                 'motor_state':0
-            }
+            },
             'raspberrypi':
             {
-                'humedad':humedad,
-                'temperatura':temperatura,
-                'luz':luz,
-                'moisture':moisture,
-            }
+                'humedad':0,
+                'temperatura':0,
+                'luz':0,
+                'moisture':0,
+            },
         }
 })
 
 
 while True:
-    r=dht_sensor.get_reults(max_tries=10)
-    
-    #lectura de los registros de luz
-    luz= luz.decode('utf8').strip()
-    luz= light.readline()
-    print('luz:'luz )
-
-    # lectura del valor de humedad relativa
+    r = dht_sensor.get_result(max_tries=10)
+    humedad = 0
+    temperatura =0
+    if r == None:
+        r = dht_sensor.get_result(max_tries = 10 )
+        if r:
+            print('Temp: {0:0.1f} C Humidity; {1:0.1f} %'.format(r[0], r[1]))
+            temperatura = r[0]
+            humedad = r[1]
+    luz = light.readline()
+    luz = luz.decode('utf8').strip()
+    print ( 'luz:',luz )
     moisture = moisture_sensor
-    moisture = moisture.decode('utf8').strip()
     moisture = moisture.readline()
-    # lectura del valor del dht_sensor
-    if r:
-        temperatura = r[0]
-        humedad = r[1]
-
+    moisture = moisture.decode('utf8').strip()
+    print ( 'moisture:',moisture )
+    #actualizacion de datos (push)
+    ref = db.reference('Garden')
+    rasp_ref = ref.child('raspberrypi')
+    luz = int(luz)
+    humedad = int(humedad)
+    moisture = int(moisture)
+    temperatura = int(temperatura)
+    rasp_ref.update({
+            'humedad':humedad,
+            'temperatura': temperatura,
+            'luz':luz,
+            'moisture':moisture_sensor
+    })
     #lectura de datos
     app_ref = ref.child('app')
     update = app_ref.order_by('update').limit_to_last(1).get()
     motor_state = app_ref.order_by('motor_state').limit_to_last(1).get()
     pi_state = app_ref.order_by('pi_state').limit_to_last(1).get()
 
-    #actualizacion de datos (push)
-    ref = db.reference('Garden')
-    rasp_ref = ref.child('raspberrypi')
-    
-    if (update == '1'):
-        self.ref.child("garden").child(rasp_ref).setValue(["humedad": str(humedad)])
-        self.ref.child("garden").child(rasp_ref).setValue(["temperatura": str(temperatura)])
-        self.ref.child("garden").child(rasp_ref).setValue(["luz": str(luz)])
-        self.ref.child("garden").child(rasp_ref).setValue(["moisture": str(moisture)])
-
     print(update)
     print(motor_state)
     print(pi_state)
 
-    if (motor_state == 0)
+    if (motor_state == 0):
         GPIO.output(motor, False)
-    elif(motor_state == 1)
+    elif(motor_state == 1):
         GPIO.output(motor, True)
     else:
-        automatico() 
+        automatico()
