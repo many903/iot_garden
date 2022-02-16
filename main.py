@@ -1,4 +1,3 @@
-
 #librerias
 import firebase_admin #pip install firebase_admin
 import time
