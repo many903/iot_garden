@@ -1,0 +1,547 @@
+[
+    {
+        "id": "57d07c56c009ceb3",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c69be813b1a284d7",
+        "type": "serial in",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "serial": "8bde6d114c02e97e",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "33ba8a2fefea63ea"
+            ]
+        ]
+    },
+    {
+        "id": "fb3a30c64ce9936c",
+        "type": "split",
+        "z": "57d07c56c009ceb3",
+        "name": "SEPARACION",
+        "splt": " ",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": true,
+        "addname": "",
+        "x": 360,
+        "y": 100,
+        "wires": [
+            [
+                "52cc3d7949ed1441",
+                "bfc209a514da0577"
+            ]
+        ]
+    },
+    {
+        "id": "394ac28f05bcc1fc",
+        "type": "ui_gauge",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "group": "92d8b3955cdfa4a2",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humedad",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 800,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "52cc3d7949ed1441",
+        "type": "debug",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "33ba8a2fefea63ea",
+        "type": "debug",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "bfc209a514da0577",
+        "type": "switch",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "index",
+                "v": "0",
+                "vt": "num",
+                "v2": "2",
+                "v2t": "num"
+            },
+            {
+                "t": "index",
+                "v": "1",
+                "vt": "num",
+                "v2": "3",
+                "v2t": "num"
+            },
+            {
+                "t": "index",
+                "v": "2",
+                "vt": "num",
+                "v2": "4",
+                "v2t": "num"
+            },
+            {
+                "t": "index",
+                "v": "3",
+                "vt": "num",
+                "v2": "5",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 590,
+        "y": 100,
+        "wires": [
+            [
+                "394ac28f05bcc1fc",
+                "9baf57830908bf1e",
+                "3f645fd2ce16d6ee"
+            ],
+            [
+                "b2fef55c778f1f5f"
+            ],
+            [
+                "b8221975f8e438a9"
+            ],
+            [
+                "5745524437ce6e84"
+            ]
+        ]
+    },
+    {
+        "id": "cb51abc460518098",
+        "type": "debug",
+        "z": "57d07c56c009ceb3",
+        "name": "luz",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "d60d7d3ad0decc6d",
+        "type": "debug",
+        "z": "57d07c56c009ceb3",
+        "name": "moisture",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "9baf57830908bf1e",
+        "type": "debug",
+        "z": "57d07c56c009ceb3",
+        "name": "humedad",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "f25be63c608c8b6b",
+        "type": "debug",
+        "z": "57d07c56c009ceb3",
+        "name": "temp",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "3f645fd2ce16d6ee",
+        "type": "split",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "splt": ": ",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": true,
+        "addname": "",
+        "x": 810,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b2fef55c778f1f5f",
+        "type": "ui_gauge",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "group": "92d8b3955cdfa4a2",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "gtype": "gage",
+        "title": "temperatura",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 810,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "5745524437ce6e84",
+        "type": "ui_gauge",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "group": "92d8b3955cdfa4a2",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "Humedad relativa",
+        "label": "%",
+        "format": "",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 830,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "b8221975f8e438a9",
+        "type": "ui_gauge",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "group": "92d8b3955cdfa4a2",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "luminocidad",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 810,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "c034853e678db6a9",
+        "type": "ui_button",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "group": "2c223921735c51e8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "regar",
+        "tooltip": "",
+        "color": "black",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 230,
+        "y": 420,
+        "wires": [
+            [
+                "9b6769139556d1b4",
+                "469401801952db30"
+            ]
+        ]
+    },
+    {
+        "id": "e3a1d3bd1c4dae92",
+        "type": "ui_button",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "group": "2c223921735c51e8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "detener",
+        "tooltip": "",
+        "color": "black",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "2",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 260,
+        "y": 500,
+        "wires": [
+            [
+                "9b6769139556d1b4",
+                "33004662a54c2866"
+            ]
+        ]
+    },
+    {
+        "id": "73c613d990650387",
+        "type": "ui_button",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "group": "2c223921735c51e8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "auto",
+        "tooltip": "",
+        "color": "black",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "3",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 250,
+        "y": 560,
+        "wires": [
+            [
+                "9b6769139556d1b4",
+                "bfbfacc3e00517b4"
+            ]
+        ]
+    },
+    {
+        "id": "9b6769139556d1b4",
+        "type": "serial out",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "serial": "8bde6d114c02e97e",
+        "x": 590,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "469401801952db30",
+        "type": "debug",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "33004662a54c2866",
+        "type": "debug",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "bfbfacc3e00517b4",
+        "type": "debug",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "e71a62fd820e6f8f",
+        "type": "serial in",
+        "z": "57d07c56c009ceb3",
+        "name": "",
+        "serial": "8bde6d114c02e97e",
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "fb3a30c64ce9936c"
+            ]
+        ]
+    },
+    {
+        "id": "5b66b8a1c6de33e3",
+        "type": "ui_spacer",
+        "z": "57d07c56c009ceb3",
+        "name": "spacer",
+        "group": "92d8b3955cdfa4a2",
+        "order": 1,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "8bde6d114c02e97e",
+        "type": "serial-port",
+        "serialport": "/dev/ttyUSB0",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "5000"
+    },
+    {
+        "id": "92d8b3955cdfa4a2",
+        "type": "ui_group",
+        "name": "sesores",
+        "tab": "d9430c0de158d50b",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2c223921735c51e8",
+        "type": "ui_group",
+        "name": "funcion del motor",
+        "tab": "d9430c0de158d50b",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d9430c0de158d50b",
+        "type": "ui_tab",
+        "name": "Tab 1",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
